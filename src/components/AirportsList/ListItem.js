@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, H3, Card, CardItem, Icon } from 'native-base';
 
-const ListItem = ({airport}) => {
+const ListItem = ({ airport, onPress }) => {
     return (
         <Card style={styles.card}>
             <CardItem header>
