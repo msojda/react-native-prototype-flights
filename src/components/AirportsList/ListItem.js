@@ -1,19 +1,28 @@
 import React from 'react';
-import { Body, Text, H3, Card, CardItem, Icon } from 'native-base';
+import { Text, H3, Card, CardItem, Icon } from 'native-base';
 
 const ListItem = ({airport}) => {
     return (
-        <Card>
+        <Card style={styles.card}>
             <CardItem header>
                 <H3>{airport.airport}</H3>
             </CardItem>
-            <CardItem>
-                <Body>
-                    <Text><Icon name='md-map' style={{fontSize: 18}} /> {airport.city}</Text>
-                </Body>
+            <CardItem footer>
+                <Text><Icon name='md-map' style={styles.icon} /> {airport.city}</Text>
             </CardItem>
         </Card>
     )
 }
+
+const styles = {
+    card: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between'
+    },
+    icon: {
+        fontSize: 18
+    }
+};
 
 export default ListItem;
