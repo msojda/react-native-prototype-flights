@@ -1,20 +1,37 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Header, Left, Button, Icon, Body, Title, Right } from 'native-base';
+import { Actions } from 'react-native-router-flux';
 
-const MyNavbar = ({ title }) => {
-    return (
-        <Header>
+class Navbar extends Component {
+    renderLeft() {
+        const { index } = this.props;
+
+        if (index === 0) {
+            return <Left />;
+        }
+
+        return (
             <Left>
-                <Button transparent>
-                    <Icon name='menu' />
+                <Button transparent onPress={Actions.pop}>
+                    <Icon name='md-arrow-back' />
                 </Button>
             </Left>
-            <Body>
-                <Title>{title}</Title>
-            </Body>
-            <Right />
-        </Header>
-    );
+        )
+    }
+
+    render() {
+        const { title } = this.props;
+
+        return (
+            <Header>
+                {this.renderLeft()}
+                <Body>
+                    <Title>{title}</Title>
+                </Body>
+                <Right />
+            </Header>
+        );
+    }
 }
 
-export default MyNavbar;
+export default Navbar;

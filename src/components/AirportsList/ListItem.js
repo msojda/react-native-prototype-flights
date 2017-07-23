@@ -4,7 +4,7 @@ import { Text, H3, Card, CardItem, Icon } from 'native-base';
 const ListItem = ({ airport, onPress }) => {
     return (
         <Card style={styles.card}>
-            <CardItem header>
+            <CardItem header button={true} onPress={onPress}>
                 <H3>{airport.airport}</H3>
             </CardItem>
             <CardItem footer>

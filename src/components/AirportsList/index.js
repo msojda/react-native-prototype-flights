@@ -21,12 +21,11 @@ const AirportsList = ({ data }) => {
           {rows.map((row, index) =>
             <Row key={index}>
               {row.map(airport =>
-                <Col key={airport._id}>
-                  <Button onPress={Actions.flightsList} transparent>
+                <Col key={airport._id} style={{flex: 1}}>
                     <ListItem
                       airport={airport}
+                      onPress={Actions.flightsList}
                     />
-                  </Button>
                 </Col>
               )}
             </Row>

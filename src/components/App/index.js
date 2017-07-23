@@ -9,7 +9,7 @@ import mocks from '../../mockedData';
 
 const client = new ApolloClient({
     networkInterface: createNetworkInterface({
-        uri: 'http://10.0.2.2:5050/graphql',
+        uri: 'http://45.32.184.7:5050/graphql',
       })
 });
 
