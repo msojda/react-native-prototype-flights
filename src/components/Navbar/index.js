@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Left, Button, Icon, Body, Title, Right } from 'native-base';
+import { Header, Left, Button, Icon, Body, Title, Right, Text } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 
 class Navbar extends Component {
@@ -19,6 +19,22 @@ class Navbar extends Component {
         )
     }
 
+    renderRight() {
+        const { onRight, rightTitle } = this.props;
+
+        if (!rightTitle) {
+            return <Right />;
+        }
+
+        return (
+            <Right>
+                <Button transparent onPress={onRight}>
+                    <Text>{rightTitle}</Text>
+                </Button>
+            </Right>
+        )
+    }
+
     render() {
         const { title } = this.props;
 
@@ -28,7 +44,7 @@ class Navbar extends Component {
                 <Body>
                     <Title>{title}</Title>
                 </Body>
-                <Right />
+                {this.renderRight()}
             </Header>
         );
     }
