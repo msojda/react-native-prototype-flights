@@ -1,25 +1,14 @@
 import React from 'react';
 import { Container, Content, Text, Form, Item, Input, Button } from 'native-base';
-import Auth0 from 'react-native-auth0';
+import { connect } from 'react-redux';
+import { loginUser } from '../../actions';
 
 class LoginForm extends React.Component {
   state = { username: '', password: '', error: '' };
 
-  constructor(props) {
-    super(props);
-
-    this.auth = new Auth0({ domain: 'msojda.eu.auth0.com', clientId: 'N0JJfL9NjbFnSwC5qqY24fNKZr2mKKzY' });
-  }
-
-  async onButtonClick() {
+  onButtonClick() {
     const { username, password } = this.state;
-
-    try {
-      const creds = await this.auth.auth.passwordRealm({ username, password, realm: "Username-Password-Authentication" });
-      this.setState({ username: '', password: '', error: '' });
-    } catch (error) {
-      this.setState({ error: error.message });
-    }
+    this.props.dispatch(loginUser(username, password));
   }
 
   render() {
@@ -71,4 +60,4 @@ const styles = {
   }
 };
 
-export default LoginForm;
+export default connect()(LoginForm);
