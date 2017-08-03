@@ -43,10 +43,13 @@ class LoginForm extends React.Component {
 
            {(error.length > 0) && <Text style={styles.error}>{error}</Text>} 
 
-          <Button full style={styles.button} onPress={this.onButtonClick.bind(this)}>
-            <Text>Sign in</Text>
+          <Button full iconRight style={styles.loginButton} onPress={this.onButtonClick.bind(this)}>
+            <Text>Sign in</Text>{isLoading && <Spinner />}
           </Button>
-          {isLoading && <Spinner />}
+
+          <Button full bordered>
+            <Text>Create new account</Text>
+          </Button>
         </Content>
       </Container>
     );
@@ -54,8 +57,9 @@ class LoginForm extends React.Component {
 }
 
 const styles = {
-  button: {
-    marginTop: 20
+  loginButton: {
+    marginTop: 20,
+    marginBottom: 10
   },
   error: {
     color: 'red',

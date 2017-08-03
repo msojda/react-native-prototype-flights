@@ -28,7 +28,7 @@ const store = createStore(
     isLoading: reducers.loading,
     auth: reducers.auth
   }),
-  {},
+  undefined,
   compose(
     applyMiddleware(client.middleware(), sagaMiddleware),
     (typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined') ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,
@@ -49,7 +49,7 @@ class App extends Component {
               <Scene key="login" component={LoginForm} title="Login" />
             </Scene>
             <Scene key="authenticated" back={false}>
-              <Scene key="profile" component={Profile} title="My Profile" onRight={() => store.dispatch(logoutUser())} rightTitle="Logout" initial />
+              <Scene key="profile" initial component={Profile} title="My Profile" onRight={() => store.dispatch(logoutUser())} rightTitle="Logout" initial />
             </Scene>
           </Scene>
         </Router>

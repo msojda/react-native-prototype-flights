@@ -31,4 +31,8 @@ async function destroyToken() {
   await AsyncStorage.removeItem('@auth:token');
 }
 
-export default { authenticate, storeToken, destroyTokenAndRevoke };
+async function getUserProfile(token) {
+  return auth0.auth.userInfo({ token });
+}
+
+export default { authenticate, storeToken, destroyTokenAndRevoke, getUserProfile };
