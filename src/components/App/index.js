@@ -6,11 +6,13 @@ import { Router, Scene, Actions } from 'react-native-router-flux';
 import createSagaMiddleware from 'redux-saga'
 import AirportsList from '../AirportsList';
 import FlightsList from '../FlightsList';
+import Profile from '../Profile';
 import Navbar from '../Navbar';
 import LoginForm from '../LoginForm';
 import mocks from '../../mockedData';
 import * as reducers from '../../reducers';
 import rootSaga from '../../sagas';
+import { logoutUser } from '../../actions';
 
 const client = new ApolloClient({
   networkInterface: createNetworkInterface({
@@ -24,7 +26,7 @@ const store = createStore(
   combineReducers({
     apollo: client.reducer(),
     isLoading: reducers.loading,
-    isAuthenticated: reducers.auth
+    auth: reducers.auth
   }),
   {},
   compose(
@@ -40,10 +42,15 @@ class App extends Component {
     return (
       <ApolloProvider client={client} store={store}>
         <Router navBar={Navbar}>
-          <Scene key="root">
-            <Scene key="airportsList" component={AirportsList} title="Airports" initial={true} onRight={() => Actions.login()} rightTitle="Login" />
-            <Scene key="flightsList" component={() => <FlightsList flights={mocks.flights} />} title="Flights" />
-            <Scene key="login" component={LoginForm} title="Login" />
+          <Scene key="root" hideNavBar>
+            <Scene key="public">
+              <Scene key="airportsList" component={AirportsList} title="Airports" initial onRight={() => Actions.login()} rightTitle="Login" />
+              <Scene key="flightsList" component={() => <FlightsList flights={mocks.flights} />} title="Flights" />
+              <Scene key="login" component={LoginForm} title="Login" />
+            </Scene>
+            <Scene key="authenticated" back={false}>
+              <Scene key="profile" component={Profile} title="My Profile" onRight={() => store.dispatch(logoutUser())} rightTitle="Logout" initial />
+            </Scene>
           </Scene>
         </Router>
       </ApolloProvider>

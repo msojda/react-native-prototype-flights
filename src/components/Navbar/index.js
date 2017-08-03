@@ -4,9 +4,9 @@ import { Actions } from 'react-native-router-flux';
 
 class Navbar extends Component {
     renderLeft() {
-        const { index } = this.props;
+        const { index, back } = this.props;
 
-        if (index === 0) {
+        if (index === 0 || back === false) {
             return <Left />;
         }
 

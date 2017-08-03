@@ -1,10 +1,10 @@
 import React from 'react';
-import { Container, Content, Text, Form, Item, Input, Button } from 'native-base';
+import { Container, Content, Text, Form, Item, Input, Button, Spinner } from 'native-base';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions';
 
 class LoginForm extends React.Component {
-  state = { username: '', password: '', error: '' };
+  state = { username: '', password: '' };
 
   onButtonClick() {
     const { username, password } = this.state;
@@ -12,11 +12,13 @@ class LoginForm extends React.Component {
   }
 
   render() {
+    const { error, isLoading } = this.props;
+
     return (
       <Container>
         <Content padder>
           <Form>
-            <Item error={(this.state.error.length > 0)}>
+            <Item error={(error.length > 0)}>
               <Input
                 placeholder="Username"
                 keyboardType='email-address'
@@ -26,7 +28,7 @@ class LoginForm extends React.Component {
                 onChangeText={(text) => this.setState({ username: text })}
               />
             </Item>
-            <Item last error={(this.state.error.length > 0)}>
+            <Item last error={(error.length > 0)}>
               <Input
                 placeholder="Password"
                 secureTextEntry
@@ -38,11 +40,12 @@ class LoginForm extends React.Component {
             </Item>
           </Form>
 
-          {(this.state.error.length > 0) && <Text style={styles.error}>{this.state.error}</Text>}
+           {(error.length > 0) && <Text style={styles.error}>{error}</Text>} 
 
           <Button full style={styles.button} onPress={this.onButtonClick.bind(this)}>
             <Text>Sign in</Text>
           </Button>
+          {isLoading && <Spinner />}
         </Content>
       </Container>
     );
@@ -60,4 +63,9 @@ const styles = {
   }
 };
 
-export default connect()(LoginForm);
+export default connect(
+  state => ({
+    error: state.auth.error,
+    isLoading: state.auth.isLoading
+  })
+)(LoginForm);
