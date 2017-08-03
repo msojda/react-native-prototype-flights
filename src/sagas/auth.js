@@ -20,7 +20,7 @@ function* storeTokenAndRedirect(action) {
 }
 
 function* destroyTokenAndRedirect() {
-  yield call(authService.destroyToken);
+  yield call(authService.destroyTokenAndRevoke);
   yield call(Actions.public);
   yield put({ type: USER_LOGOUT_SUCCESS });
 }

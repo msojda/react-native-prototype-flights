@@ -26,6 +26,7 @@ class LoginForm extends React.Component {
                 autoCorrect={false}
                 value={this.state.username}
                 onChangeText={(text) => this.setState({ username: text })}
+                autoFocus
               />
             </Item>
             <Item last error={(error.length > 0)}>
