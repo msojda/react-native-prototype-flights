@@ -13,10 +13,11 @@ import mocks from '../../mockedData';
 import * as reducers from '../../reducers';
 import rootSaga from '../../sagas';
 import { logoutUser } from '../../actions';
+import CONFIG from '../../config';
 
 const client = new ApolloClient({
   networkInterface: createNetworkInterface({
-    uri: 'http://localhost:5050/graphql',
+    uri: CONFIG.API_URL,
   })
 });
 

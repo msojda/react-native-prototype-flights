@@ -1,10 +1,11 @@
 import Auth0 from 'react-native-auth0';
 import { AsyncStorage } from 'react-native';
+import CONFIG from '../config';
 
-auth0 = new Auth0({ domain: 'msojda.eu.auth0.com', clientId: 'N0JJfL9NjbFnSwC5qqY24fNKZr2mKKzY' });
+auth0 = new Auth0({ domain: CONFIG.AUTH0_DOMAIN, clientId: CONFIG.AUTH0_CLIENT_ID });
 
 function authenticate(username, password) {
-  return auth0.auth.passwordRealm({ username, password, realm: "Username-Password-Authentication", scope: "offline_access openid profile email address phone" });
+  return auth0.auth.passwordRealm({ username, password, realm: CONFIG.AUTH0_REALM, scope: CONFIG.AUTH0_SCOPE });
 }
 
 async function storeToken(token) {
