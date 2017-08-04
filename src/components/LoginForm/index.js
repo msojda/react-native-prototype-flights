@@ -27,6 +27,8 @@ class LoginForm extends React.Component {
                 value={this.state.username}
                 onChangeText={(text) => this.setState({ username: text })}
                 autoFocus
+                onSubmitEditing={this.onButtonClick.bind(this)}
+                returnKeyType='done'
               />
             </Item>
             <Item last error={(error.length > 0)}>
@@ -37,6 +39,8 @@ class LoginForm extends React.Component {
                 autoCorrect={false}
                 value={this.state.password}
                 onChangeText={(text) => this.setState({ password: text })}
+                onSubmitEditing={this.onButtonClick.bind(this)}
+                returnKeyType='done'
               />
             </Item>
           </Form>
