@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Content, Text, Form, Item, Input, Button, Spinner } from 'native-base';
 import { connect } from 'react-redux';
-import { loginUser } from '../../actions';
+import { loginUser } from '@flights/app/actions';
 
 class LoginForm extends React.Component {
   state = { username: '', password: '' };

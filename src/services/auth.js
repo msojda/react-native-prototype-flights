@@ -1,6 +1,6 @@
 import Auth0 from 'react-native-auth0';
 import { AsyncStorage } from 'react-native';
-import CONFIG from '../config';
+import CONFIG from '@flights/app/config';
 
 auth0 = new Auth0({ domain: CONFIG.AUTH0_DOMAIN, clientId: CONFIG.AUTH0_CLIENT_ID });
 

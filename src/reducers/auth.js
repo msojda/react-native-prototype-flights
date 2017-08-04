@@ -5,7 +5,7 @@ import {
   USER_LOGOUT_SUCCESS, 
   USER_PROFILE_SUCCESS,
   USER_PROFILE_LOADING
-} from '../actions/types';
+} from '@flights/app/actions/types';
 
 const initialState = {
   isAuthenticated: false,

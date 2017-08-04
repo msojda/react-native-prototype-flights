@@ -4,16 +4,15 @@ import { ApolloClient, ApolloProvider, createNetworkInterface } from 'react-apol
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Router, Scene, Actions } from 'react-native-router-flux';
 import createSagaMiddleware from 'redux-saga'
-import AirportsList from '../AirportsList';
-import FlightsList from '../FlightsList';
-import Profile from '../Profile';
-import Navbar from '../Navbar';
-import LoginForm from '../LoginForm';
-import mocks from '../../mockedData';
-import * as reducers from '../../reducers';
-import rootSaga from '../../sagas';
-import { logoutUser } from '../../actions';
-import CONFIG from '../../config';
+import AirportsList from '@flights/app/components/AirportsList';
+import FlightsList from '@flights/app/components/FlightsList';
+import Profile from '@flights/app/components/Profile';
+import Navbar from '@flights/app/components/Navbar';
+import LoginForm from '@flights/app/components/LoginForm';
+import * as reducers from '@flights/app/reducers';
+import rootSaga from '@flights/app/sagas';
+import { logoutUser } from '@flights/app/actions';
+import CONFIG from '@flights/app/config';
 
 const client = new ApolloClient({
   networkInterface: createNetworkInterface({

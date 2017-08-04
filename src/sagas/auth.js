@@ -11,8 +11,8 @@ import {
   USER_PROFILE_FAILURE,
   USER_LOGOUT_REQUESTED,
   USER_LOGOUT_SUCCESS
-} from '../actions/types';
-import authService from '../services/auth';
+} from '@flights/app/actions/types';
+import authService from '@flights/app/services/auth';
 
 function* loginUser(action) {
   try {
