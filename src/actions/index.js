@@ -64,3 +64,29 @@ export function logoutUserFulfilled() {
     type: types.USER_LOGOUT_SUCCESS 
   };
 }
+
+export function registerUser(email, username, password) {
+  return {
+    type: types.REGISTER_USER_REQUESTED,
+    payload: { email, username, password }
+  };
+}
+
+export function registerUserPending() {
+  return {
+    type: types.REGISTER_USER_LOADING
+  };
+}
+
+export function registerUserFulfilled() {
+  return { 
+    type: types.REGISTER_USER_SUCCESS
+  };
+}
+
+export function registerUserFailed(error) {
+  return { 
+    type: types.REGISTER_USER_FAILURE, 
+    payload: { error } 
+  };
+}

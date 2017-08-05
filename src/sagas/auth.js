@@ -42,11 +42,26 @@ function* destroyTokenAndRedirect() {
   yield put(actions.logoutUserFulfilled());
 }
 
+function* registerUser(action) {
+  try {
+    yield put(actions.registerUserPending());
+
+    const { username, password, email } = action.payload;
+    const token = yield call(authService.register, username, password, email);
+
+    yield put(actions.registerUserFulfilled());
+    yield call(RouterActions.registrationComplete);
+  } catch (e) {
+    yield put(actions.registerUserFailed(e.message));
+  }
+}
+
 const authSaga = function* () {
   yield takeLatest(types.USER_LOGIN_REQUESTED, loginUser);
   yield takeLatest(types.USER_LOGIN_SUCCESS, storeTokenAndRedirect);
   yield takeLatest(types.USER_LOGOUT_REQUESTED, destroyTokenAndRedirect);
   yield takeLatest(types.USER_PROFILE_REQUESTED, fetchUserProfile);
+  yield takeLatest(types.REGISTER_USER_REQUESTED, registerUser);
 }
 
 export default authSaga;

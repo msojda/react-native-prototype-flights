@@ -8,6 +8,10 @@ function authenticate(username, password) {
   return auth0.auth.passwordRealm({ username, password, realm: CONFIG.AUTH0_REALM, scope: CONFIG.AUTH0_SCOPE });
 }
 
+function register(username, password, email) {
+  return auth0.auth.createUser({ username, password, email, connection: CONFIG.AUTH0_REALM });
+}
+
 async function storeToken(token) {
   await AsyncStorage.setItem('@auth:token', JSON.stringify(token));
 }
@@ -36,4 +40,4 @@ async function getUserProfile(token) {
   return auth0.auth.userInfo({ token });
 }
 
-export default { authenticate, storeToken, destroyTokenAndRevoke, getUserProfile };
+export default { authenticate, storeToken, destroyTokenAndRevoke, getUserProfile, register };

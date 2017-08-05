@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Content, Text, Form, Item, Input, Button, Spinner } from 'native-base';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import { loginUser } from '@flights/app/actions';
 
 class LoginForm extends React.Component {
@@ -51,7 +52,7 @@ class LoginForm extends React.Component {
             <Text>Sign in</Text>{isLoading && <Spinner />}
           </Button>
 
-          <Button full bordered>
+          <Button full bordered onPress={Actions.register}>
             <Text>Create new account</Text>
           </Button>
         </Content>
