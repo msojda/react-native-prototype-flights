@@ -4,6 +4,7 @@ import { ApolloClient, ApolloProvider, createNetworkInterface } from 'react-apol
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Router, Scene, Actions } from 'react-native-router-flux';
 import createSagaMiddleware from 'redux-saga'
+import { reducer as formReducer } from 'redux-form'
 
 import AirportsList from '@flights/app/components/AirportsList';
 import FlightsList from '@flights/app/components/FlightsList';
@@ -12,6 +13,7 @@ import Navbar from '@flights/app/components/Navbar';
 import LoginForm from '@flights/app/components/LoginForm';
 import Registration from '@flights/app/components/Registration';
 import RegistrationComplete from '@flights/app/components/RegistrationComplete';
+import UpdateProfile from '@flights/app/components/UpdateProfile';
 
 import * as reducers from '@flights/app/reducers';
 import rootSaga from '@flights/app/sagas';
@@ -31,7 +33,8 @@ const store = createStore(
     apollo: client.reducer(),
     isLoading: reducers.loading,
     auth: reducers.auth,
-    onboarding: reducers.register
+    onboarding: reducers.register,
+    form: formReducer
   }),
   undefined,
   compose(
@@ -56,8 +59,9 @@ class App extends Component {
               <Scene key="register" component={Registration} title="Register" onRight={() => Actions.login()} rightTitle="Login" />
               <Scene key="registrationComplete" component={RegistrationComplete} title="Welcome" back={false} />
             </Scene>
-            <Scene key="authenticated" back={false}>
-              <Scene key="profile" initial component={Profile} title="My Profile" onRight={() => store.dispatch(logoutUser())} rightTitle="Logout" initial />
+            <Scene key="authenticated">
+              <Scene key="profile" component={Profile} title="My Profile" onRight={() => store.dispatch(logoutUser())} rightTitle="Logout" initial back={false} />
+              <Scene key="updateProfile" component={UpdateProfile} title="Update profile" />
             </Scene>
           </Scene>
         </Router>

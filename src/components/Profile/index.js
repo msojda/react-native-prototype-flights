@@ -6,6 +6,7 @@ import {
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { Col, Grid, Row } from 'react-native-easy-grid';
+import { Actions } from 'react-native-router-flux';
 import moment from 'moment';
 
 class Profile extends React.Component {
@@ -56,8 +57,11 @@ class Profile extends React.Component {
               </Grid>
             </ListItem>
           </List>
-          <Button full bordered style={{marginTop: 30}}>
+          <Button full bordered style={{marginTop: 40}} onPress={Actions.updateProfile}>
             <Text>Edit Profile</Text>
+          </Button>
+          <Button full bordered style={{marginTop: 10}} onPress={Actions.updateProfile}>
+            <Text>Change Password</Text>
           </Button>
         </Content>
       </Container>

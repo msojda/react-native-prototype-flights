@@ -40,4 +40,10 @@ async function getUserProfile(token) {
   return auth0.auth.userInfo({ token });
 }
 
-export default { authenticate, storeToken, destroyTokenAndRevoke, getUserProfile, register };
+export default { 
+  authenticate, 
+  storeToken, 
+  destroyTokenAndRevoke, 
+  getUserProfile, 
+  register
+};
