@@ -1,25 +1,41 @@
 import React from 'react';
-import { 
-  Container, Content
+import {
+  Container, Content, Spinner
 } from 'native-base';
 import { formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { graphql, gql } from 'react-apollo';
 import ProfileForm from '@flights/app/components/ProfileForm';
 
 class UpdateProfile extends React.Component {
-  handleSubmit() {
-    const { email, username } = this.props;
+  state = { isLoading: false };
 
-    console.log(email, username);
+  handleSubmit() {
+    const { firstName, lastName, createOrUpdateProfile } = this.props;
+
+    this.setState({ isLoading: true });
+    createOrUpdateProfile({ variables: { firstName, lastName } }).then(() => {
+      this.props.data.refetch();
+      this.setState({ isLoading: false });
+    });
   }
 
   render() {
-    const { initialValues } = this.props;
+    const { user, loading } = this.props.data;
+
+    if (loading) {
+      return <Spinner />;
+    }
 
     return (
       <Container>
         <Content padder>
-          <ProfileForm handleSubmit={this.handleSubmit.bind(this)} initialValues={initialValues} />
+          <ProfileForm
+            handleSubmit={this.handleSubmit.bind(this)}
+            initialValues={user.profile}
+            isLoading={this.state.isLoading}
+          />
         </Content>
       </Container>
     );
@@ -28,13 +44,29 @@ class UpdateProfile extends React.Component {
 
 const selector = formValueSelector('ProfileForm');
 
-export default connect(
-  state => ({
-    email: selector(state, 'email'),
-    username: selector(state, 'username'),
-    initialValues: {
-      email: state.auth.profile.email,
-      username: state.auth.profile.nickname
+export default compose(
+  connect(
+    state => ({
+      firstName: selector(state, 'firstName'),
+      lastName: selector(state, 'lastName')
+    })
+  ),
+  graphql(gql`{
+    user {
+      profile {
+        userId
+        firstName
+        lastName
+      }
     }
-  })
+  }`),
+  graphql(gql`
+  mutation($firstName: String!, $lastName: String!) {
+    createOrUpdateProfile(firstName: $firstName, lastName: $lastName) {
+      userId
+      firstName
+      lastName
+    }
+  }
+`, { name: 'createOrUpdateProfile' })
 )(UpdateProfile);

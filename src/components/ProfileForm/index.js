@@ -1,22 +1,20 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form';
-import { Form, Item, Button, Text } from 'native-base';
+import { Form, Item, Button, Text, Spinner } from 'native-base';
 import { View } from 'react-native';
 import TextField from '@flights/app/components/TextField';
 
 let ProfileForm = props => {
-  const { handleSubmit } = props;
+  const { handleSubmit, isLoading } = props;
 
   return (
     <View>
       <Form>
         <Item>
           <Field
-            name="username"
+            name="firstName"
             component={TextField}
-            placeholder="Username"
-            keyboardType='email-address'
-            autoCapitalize='none'
+            placeholder="First name"
             autoCorrect={false}
             autoFocus
             returnKeyType='done'
@@ -24,11 +22,9 @@ let ProfileForm = props => {
         </Item>
         <Item>
           <Field
-            name="email"
+            name="lastName"
             component={TextField}
-            placeholder="E-mail address"
-            keyboardType='email-address'
-            autoCapitalize='none'
+            placeholder="Last name"
             autoCorrect={false}
             returnKeyType='done'
           />
@@ -36,7 +32,7 @@ let ProfileForm = props => {
       </Form>
 
       <Button style={{ marginTop: 10 }} full iconRight onPress={handleSubmit}>
-        <Text>Save changes</Text>
+        <Text>Save changes</Text>{isLoading && <Spinner />}
       </Button>
     </View>
   )

@@ -5,7 +5,13 @@ import CONFIG from '@flights/app/config';
 auth0 = new Auth0({ domain: CONFIG.AUTH0_DOMAIN, clientId: CONFIG.AUTH0_CLIENT_ID });
 
 function authenticate(username, password) {
-  return auth0.auth.passwordRealm({ username, password, realm: CONFIG.AUTH0_REALM, scope: CONFIG.AUTH0_SCOPE });
+  return auth0.auth.passwordRealm({ 
+    username, 
+    password, 
+    realm: CONFIG.AUTH0_REALM, 
+    scope: CONFIG.AUTH0_SCOPE,
+    audience: 'http://localhost:5050/'
+  });
 }
 
 function register(username, password, email) {
@@ -45,5 +51,6 @@ export default {
   storeToken, 
   destroyTokenAndRevoke, 
   getUserProfile, 
-  register
+  register,
+  getToken
 };

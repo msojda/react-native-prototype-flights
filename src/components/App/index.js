@@ -18,13 +18,27 @@ import UpdateProfile from '@flights/app/components/UpdateProfile';
 import * as reducers from '@flights/app/reducers';
 import rootSaga from '@flights/app/sagas';
 import { logoutUser } from '@flights/app/actions';
+import authService from '@flights/app/services/auth';
 import CONFIG from '@flights/app/config';
 
-const client = new ApolloClient({
-  networkInterface: createNetworkInterface({
-    uri: CONFIG.API_URL,
-  })
+const networkInterface = createNetworkInterface({
+  uri: CONFIG.API_URL,
 });
+
+networkInterface.use([{
+  applyMiddleware(req, next) {
+    if (!req.options.headers) {
+      req.options.headers = {};
+    }
+    const token = authService.getToken()
+    .then((token) => {
+      req.options.headers.authorization = token ? `Bearer ${token.accessToken}` : null;
+      next();
+    });
+  }
+}]);
+
+const client = new ApolloClient({ networkInterface });
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -49,23 +63,23 @@ class App extends Component {
   render() {
     return (
       <Root>
-      <ApolloProvider client={client} store={store}>
-        <Router navBar={Navbar}>
-          <Scene key="root" hideNavBar>
-            <Scene key="public">
-              <Scene key="airportsList" component={AirportsList} title="Airports" initial onRight={() => Actions.login()} rightTitle="Login" />
-              <Scene key="flightsList" component={() => <FlightsList flights={mocks.flights} />} title="Flights" />
-              <Scene key="login" component={LoginForm} title="Login" />
-              <Scene key="register" component={Registration} title="Register" onRight={() => Actions.login()} rightTitle="Login" />
-              <Scene key="registrationComplete" component={RegistrationComplete} title="Welcome" back={false} />
+        <ApolloProvider client={client} store={store}>
+          <Router navBar={Navbar}>
+            <Scene key="root" hideNavBar>
+              <Scene key="public">
+                <Scene key="airportsList" component={AirportsList} title="Airports" initial onRight={() => Actions.login()} rightTitle="Login" />
+                <Scene key="flightsList" component={() => <FlightsList flights={mocks.flights} />} title="Flights" />
+                <Scene key="login" component={LoginForm} title="Login" />
+                <Scene key="register" component={Registration} title="Register" onRight={() => Actions.login()} rightTitle="Login" />
+                <Scene key="registrationComplete" component={RegistrationComplete} title="Welcome" back={false} />
+              </Scene>
+              <Scene key="authenticated">
+                <Scene key="profile" component={Profile} title="My Profile" onRight={() => store.dispatch(logoutUser())} rightTitle="Logout" initial back={false} />
+                <Scene key="updateProfile" component={UpdateProfile} title="Update profile" />
+              </Scene>
             </Scene>
-            <Scene key="authenticated">
-              <Scene key="profile" component={Profile} title="My Profile" onRight={() => store.dispatch(logoutUser())} rightTitle="Logout" initial back={false} />
-              <Scene key="updateProfile" component={UpdateProfile} title="Update profile" />
-            </Scene>
-          </Scene>
-        </Router>
-      </ApolloProvider>
+          </Router>
+        </ApolloProvider>
       </Root>
     )
   }
