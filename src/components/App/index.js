@@ -15,6 +15,7 @@ import Registration from '@flights/app/components/Registration';
 import RegistrationComplete from '@flights/app/components/RegistrationComplete';
 import UpdateProfile from '@flights/app/components/UpdateProfile';
 import ChangePassword from '@flights/app/components/ChangePassword';
+import RemindPassword from '@flights/app/components/RemindPassword';
 
 import * as reducers from '@flights/app/reducers';
 import rootSaga from '@flights/app/sagas';
@@ -75,6 +76,7 @@ class App extends Component {
                 <Scene key="login" component={LoginForm} title="Login" />
                 <Scene key="register" component={Registration} title="Register" onRight={() => Actions.login()} rightTitle="Login" />
                 <Scene key="registrationComplete" component={RegistrationComplete} title="Welcome" back={false} />
+                <Scene key="remindPassword" component={RemindPassword} title="Forgotten password" onRight={() => Actions.login()} rightTitle="Login" />
               </Scene>
               <Scene key="authenticated">
                 <Scene key="profile" component={Profile} title="My Profile" onRight={() => store.dispatch(logoutUser())} rightTitle="Logout" initial back={false} />

@@ -46,7 +46,7 @@ class LoginForm extends React.Component {
             </Item>
           </Form>
 
-           {(error.length > 0) && <Text style={styles.error}>{error}</Text>} 
+          {(error.length > 0) && <Text style={styles.error}>{error}</Text>}
 
           <Button full iconRight style={styles.loginButton} onPress={this.onButtonClick.bind(this)}>
             <Text>Sign in</Text>{isLoading && <Spinner />}
@@ -54,6 +54,10 @@ class LoginForm extends React.Component {
 
           <Button full bordered onPress={Actions.register}>
             <Text>Create new account</Text>
+          </Button>
+
+          <Button full bordered onPress={Actions.remindPassword} style={{ marginTop: 10 }}>
+            <Text>Forgot your password?</Text>
           </Button>
         </Content>
       </Container>
