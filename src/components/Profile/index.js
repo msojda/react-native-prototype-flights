@@ -60,7 +60,7 @@ class Profile extends React.Component {
           <Button full bordered style={{marginTop: 40}} onPress={Actions.updateProfile}>
             <Text>Edit Profile</Text>
           </Button>
-          <Button full bordered style={{marginTop: 10}} onPress={Actions.updateProfile}>
+          <Button full bordered style={{marginTop: 10}} onPress={Actions.changePassword}>
             <Text>Change Password</Text>
           </Button>
         </Content>

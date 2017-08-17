@@ -14,6 +14,7 @@ import LoginForm from '@flights/app/components/LoginForm';
 import Registration from '@flights/app/components/Registration';
 import RegistrationComplete from '@flights/app/components/RegistrationComplete';
 import UpdateProfile from '@flights/app/components/UpdateProfile';
+import ChangePassword from '@flights/app/components/ChangePassword';
 
 import * as reducers from '@flights/app/reducers';
 import rootSaga from '@flights/app/sagas';
@@ -32,7 +33,9 @@ networkInterface.use([{
     }
     const token = authService.getToken()
     .then((token) => {
-      req.options.headers.authorization = token ? `Bearer ${token.accessToken}` : null;
+      if(token && token.hasOwnProperty('accessToken')) {
+        req.options.headers.authorization = `Bearer ${token.accessToken}`;
+      }
       next();
     });
   }
@@ -76,6 +79,7 @@ class App extends Component {
               <Scene key="authenticated">
                 <Scene key="profile" component={Profile} title="My Profile" onRight={() => store.dispatch(logoutUser())} rightTitle="Logout" initial back={false} />
                 <Scene key="updateProfile" component={UpdateProfile} title="Update profile" />
+                <Scene key="changePassword" component={ChangePassword} title="Change your password" />
               </Scene>
             </Scene>
           </Router>

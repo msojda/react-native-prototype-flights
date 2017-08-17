@@ -10,25 +10,21 @@ let ProfileForm = props => {
   return (
     <View>
       <Form>
-        <Item>
-          <Field
-            name="firstName"
-            component={TextField}
-            placeholder="First name"
-            autoCorrect={false}
-            autoFocus
-            returnKeyType='done'
-          />
-        </Item>
-        <Item>
-          <Field
-            name="lastName"
-            component={TextField}
-            placeholder="Last name"
-            autoCorrect={false}
-            returnKeyType='done'
-          />
-        </Item>
+        <Field
+          name="firstName"
+          component={TextField}
+          placeholder="First name"
+          autoCorrect={false}
+          autoFocus
+          returnKeyType='done'
+        />
+        <Field
+          name="lastName"
+          component={TextField}
+          placeholder="Last name"
+          autoCorrect={false}
+          returnKeyType='done'
+        />
       </Form>
 
       <Button style={{ marginTop: 10 }} full iconRight onPress={handleSubmit}>
