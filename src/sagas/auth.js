@@ -32,7 +32,9 @@ function* fetchUserProfile(action) {
 }
 
 function* storeTokenAndRedirect(action) {
-  yield call(authService.storeToken, action.payload);
+  const { accessToken, refreshToken } = action.payload;
+  yield call(authService.storeAccessToken, accessToken);
+  yield call(authService.storeRefreshToken, refreshToken);
   yield call(RouterActions.profile);
 }
 

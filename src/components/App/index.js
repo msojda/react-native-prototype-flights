@@ -22,6 +22,7 @@ import rootSaga from '@flights/app/sagas';
 import { logoutUser } from '@flights/app/actions';
 import authService from '@flights/app/services/auth';
 import CONFIG from '@flights/app/config';
+import mocks from '@flights/app/mockedData';
 
 const networkInterface = createNetworkInterface({
   uri: CONFIG.API_URL,
@@ -32,10 +33,10 @@ networkInterface.use([{
     if (!req.options.headers) {
       req.options.headers = {};
     }
-    const token = authService.getToken()
+    const token = authService.getAccessToken()
     .then((token) => {
-      if(token && token.hasOwnProperty('accessToken')) {
-        req.options.headers.authorization = `Bearer ${token.accessToken}`;
+      if(token) {
+        req.options.headers.authorization = `Bearer ${token}`;
       }
       next();
     });
