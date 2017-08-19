@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Content, Text, Form, Item, Input, Button, Spinner } from 'native-base';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
 import { loginUser } from '@flights/app/actions';
 
 class LoginForm extends React.Component {
@@ -13,7 +12,7 @@ class LoginForm extends React.Component {
   }
 
   render() {
-    const { error, isLoading } = this.props;
+    const { error, isLoading, navigation } = this.props;
 
     return (
       <Container>
@@ -52,11 +51,11 @@ class LoginForm extends React.Component {
             <Text>Sign in</Text>{isLoading && <Spinner />}
           </Button>
 
-          <Button full bordered onPress={Actions.register}>
+          <Button full bordered onPress={() => navigation.navigate('Register')}>
             <Text>Create new account</Text>
           </Button>
 
-          <Button full bordered onPress={Actions.remindPassword} style={{ marginTop: 10 }}>
+          <Button full bordered onPress={() => navigation.navigate('RemindPassword')} style={{ marginTop: 10 }}>
             <Text>Forgot your password?</Text>
           </Button>
         </Content>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Content, Text, Form, Item, Input, Button, Spinner, CheckBox, Body, View, Toast } from 'native-base';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
 import { registerUser } from '@flights/app/actions';
 
 class Registration extends React.Component {

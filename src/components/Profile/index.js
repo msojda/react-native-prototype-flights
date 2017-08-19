@@ -6,7 +6,6 @@ import {
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { Col, Grid, Row } from 'react-native-easy-grid';
-import { Actions } from 'react-native-router-flux';
 import moment from 'moment';
 
 class Profile extends React.Component {
@@ -21,7 +20,7 @@ class Profile extends React.Component {
   }
 
   render() {
-    const { picture, isLoading, nickname, updatedAt, email } = this.props.profile;
+    const { navigation, profile: { picture, isLoading, nickname, updatedAt, email } } = this.props;
 
     if (isLoading) {
       return <Spinner />;
@@ -57,10 +56,10 @@ class Profile extends React.Component {
               </Grid>
             </ListItem>
           </List>
-          <Button full bordered style={{marginTop: 40}} onPress={Actions.updateProfile}>
+          <Button full bordered style={{marginTop: 40}} onPress={() => navigation.navigate('UpdateProfile')}>
             <Text>Edit Profile</Text>
           </Button>
-          <Button full bordered style={{marginTop: 10}} onPress={Actions.changePassword}>
+          <Button full bordered style={{marginTop: 10}} onPress={() => navigation.navigate('ChangePassword')}>
             <Text>Change Password</Text>
           </Button>
         </Content>

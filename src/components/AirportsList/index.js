@@ -3,10 +3,9 @@ import { Spinner, Content, Container, Button } from 'native-base';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import chunk from 'lodash/chunk';
 import { graphql, gql } from 'react-apollo';
-import { Actions } from 'react-native-router-flux';
 import ListItem from './ListItem';
 
-const AirportsList = ({ data }) => {
+const AirportsList = ({ data, navigation }) => {
   if (data.loading) {
     return <Spinner />;
   }
@@ -24,7 +23,7 @@ const AirportsList = ({ data }) => {
                 <Col key={airport._id} style={{flex: 1}}>
                     <ListItem
                       airport={airport}
-                      onPress={Actions.flightsList}
+                      onPress={() => navigation.navigate('FlightsList')}
                     />
                 </Col>
               )}
