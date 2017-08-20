@@ -4,7 +4,6 @@ import { StackNavigator } from 'react-navigation';
 import AirportsList from '@flights/app/components/AirportsList';
 import FlightsList from '@flights/app/components/FlightsList';
 import Profile from '@flights/app/components/Profile';
-import Navbar from '@flights/app/components/Navbar';
 import LoginForm from '@flights/app/components/LoginForm';
 import Registration from '@flights/app/components/Registration';
 import RegistrationComplete from '@flights/app/components/RegistrationComplete';
