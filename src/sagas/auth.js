@@ -1,5 +1,5 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
-import { Actions as RouterActions } from 'react-native-router-flux';
+import { NavigationActions } from 'react-navigation';
 import * as actions from '@flights/app/actions';
 import * as types from '@flights/app/actions/types';
 import authService from '@flights/app/services/auth';
@@ -35,12 +35,13 @@ function* storeTokenAndRedirect(action) {
   const { accessToken, refreshToken } = action.payload;
   yield call(authService.storeAccessToken, accessToken);
   yield call(authService.storeRefreshToken, refreshToken);
-  yield call(RouterActions.profile);
+
+  yield put(NavigationActions.navigate({ routeName: 'Profile' }));
 }
 
 function* destroyTokenAndRedirect() {
   yield call(authService.destroyTokenAndRevoke);
-  yield call(RouterActions.public);
+  yield put(NavigationActions.navigate({ routeName: 'Airports' }));
   yield put(actions.logoutUserFulfilled());
 }
 
@@ -52,7 +53,7 @@ function* registerUser(action) {
     const token = yield call(authService.register, username, password, email);
 
     yield put(actions.registerUserFulfilled());
-    yield call(RouterActions.registrationComplete);
+    yield put(NavigationActions.navigate({ routeName: 'RegistrationComplete' }));
   } catch (e) {
     yield put(actions.registerUserFailed(e.message));
   }

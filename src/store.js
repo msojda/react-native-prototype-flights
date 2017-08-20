@@ -6,6 +6,7 @@ import createSagaMiddleware from 'redux-saga'
 import { reducer as formReducer } from 'redux-form'
 import { ApolloClient, ApolloProvider, createNetworkInterface } from 'react-apollo';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import nav from '@flights/app/reducers/nav';
 
 const networkInterface = createNetworkInterface({
   uri: CONFIG.API_URL,
@@ -36,7 +37,8 @@ export const store = createStore(
     isLoading: reducers.loading,
     auth: reducers.auth,
     onboarding: reducers.register,
-    form: formReducer
+    form: formReducer,
+    nav
   }),
   undefined,
   compose(

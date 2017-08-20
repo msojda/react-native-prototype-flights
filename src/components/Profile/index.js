@@ -7,11 +7,17 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import moment from 'moment';
+import { logoutUser } from '@flights/app/actions';
 
 class Profile extends React.Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Your Profile',
+    headerRight: <Button transparent onPress={() => navigation.dispatch(logoutUser())}><Text>Logout</Text></Button>
+  })
+
   renderEmailVerification() {
     const { emailVerified } = this.props;
-    
+
     if (emailVerified) {
       return <Badge success><Text>OK</Text></Badge>
     } else {
@@ -29,11 +35,11 @@ class Profile extends React.Component {
     return (
       <Container>
         <Content padder>
-          <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-            <Thumbnail source={{ uri: picture }} style={{marginRight: 20}} />
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+            <Thumbnail source={{ uri: picture }} style={{ marginRight: 20 }} />
             <H1>Hello, {nickname}!</H1>
           </View>
-          <List style={{marginTop: 20}}>
+          <List style={{ marginTop: 20 }}>
             <ListItem>
               <Grid>
                 <Col size={1} style={{ flexDirection: 'row' }}>
@@ -56,10 +62,10 @@ class Profile extends React.Component {
               </Grid>
             </ListItem>
           </List>
-          <Button full bordered style={{marginTop: 40}} onPress={() => navigation.navigate('UpdateProfile')}>
+          <Button full bordered style={{ marginTop: 40 }} onPress={() => navigation.navigate('UpdateProfile')}>
             <Text>Edit Profile</Text>
           </Button>
-          <Button full bordered style={{marginTop: 10}} onPress={() => navigation.navigate('ChangePassword')}>
+          <Button full bordered style={{ marginTop: 10 }} onPress={() => navigation.navigate('ChangePassword')}>
             <Text>Change Password</Text>
           </Button>
         </Content>
